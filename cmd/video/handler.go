@@ -16,24 +16,31 @@ type VideoServiceImpl struct {
 
 // Feed implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.DouyinFeedRequest) (resp *video.DouyinFeedResponse, err error) {
-	klog.Info("调用video  服务端")
+	//klog.Info("调用video服务端 Feed方法 ")
 	resp = new(video.DouyinFeedResponse)
 	if req.LatestTime <= 0 {
 		req.LatestTime = time.Now().UnixNano()
 	}
+	//req.LatestTime=1692441970550877010
+	//               1692337473000000000
 	videos, err := dao.GetVideoListByLatestTime(req.LatestTime)
-	klog.Info(videos)
+	nextTime := videos[len(videos)-1].CreatedAt
+	resp.NextTime = nextTime.UnixNano()
 
 	if err != nil {
-		klog.Info("video  服务端错误")
+		klog.Info("video服务端 Feed方法 错误")
+		resp.BaseResp = &base.DouyinBaseResponse{
+			StatusCode: int32(consts.ErrCode),
+			StatusMsg:  "video服务端 Feed方法 错误",
+		}
 		return resp, err
 	}
 	resp.VideoList, err = fillVideoList(videos)
-	klog.Info(resp.VideoList)
 	resp.BaseResp = &base.DouyinBaseResponse{
-		StatusCode: int32(consts.ErrCode),
-		StatusMsg:  "video 服务端错误",
+		StatusCode: int32(consts.CorrectCode),
+		StatusMsg:  "video服务端 Feed方法 成功",
 	}
+
 	return resp, nil
 }
 
@@ -67,7 +74,7 @@ func fillVideoList(videoList []*dao.VideoPo) ([]*base.Video, error) {
 		}
 	}
 	return videolistVo, nil
-	return []*base.Video{}, nil
+	//return []*base.Video{}, nil
 }
 
 // GetFavoriteVideoList implements the VideoServiceImpl interface.

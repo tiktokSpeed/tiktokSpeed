@@ -101,7 +101,8 @@ const (
 	FollowCount   = 0
 	FollowerCount = 1
 	
-	ErrCode       = 500
+	ErrCode = 500
+	CorrectCode=0
 )
 
 func SendResponse(c *app.RequestContext, data interface{}) {
