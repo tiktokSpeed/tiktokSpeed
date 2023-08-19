@@ -1,6 +1,8 @@
 package dao
 
 import (
+	"time"
+
 	"github.com/tiktokSpeed/tiktokSpeed/cmd/video/initialize"
 	"github.com/tiktokSpeed/tiktokSpeed/shared/consts"
 )
@@ -18,6 +20,7 @@ type VideoPo struct {
 	PlayUrl       string `gorm:"not null; type: varchar(255)"`
 	CoverUrl      string `gorm:"not null; type: varchar(255)"`
 	Title         string `gorm:"not null; type: varchar(255)"`
+	CreatedAt     time.Time
 }
 
 // GetVideoListByLatestTime gets videos for feed.
