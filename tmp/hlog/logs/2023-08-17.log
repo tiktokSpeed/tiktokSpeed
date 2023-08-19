@@ -1,0 +1,67 @@
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T03:09:03Z"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T03:09:03Z"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T03:09:03Z"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T03:10:47Z"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T03:10:47Z"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T03:10:47Z"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T03:26:41Z"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T03:26:41Z"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T03:26:41Z"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T03:27:20Z"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T03:27:20Z"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T03:27:20Z"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T03:27:56Z"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T03:27:56Z"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T03:27:56Z"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T03:28:00Z"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T03:28:00Z"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T03:28:00Z"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T09:26:33Z"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T09:26:33Z"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T09:26:33Z"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T09:31:03Z"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T09:31:03Z"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T09:31:03Z"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T11:21:12Z"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T11:21:12Z"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T11:21:12Z"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T11:25:03Z"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T11:25:03Z"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T11:25:03Z"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T19:36:59+08:00"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T19:36:59+08:00"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T19:36:59+08:00"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T19:38:15+08:00"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T19:38:15+08:00"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T19:38:15+08:00"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T19:41:05+08:00"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T19:41:05+08:00"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T19:41:05+08:00"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T19:42:42+08:00"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T19:42:42+08:00"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T19:42:42+08:00"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T19:42:44+08:00"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T19:42:44+08:00"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T19:42:44+08:00"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T19:43:52+08:00"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T19:43:52+08:00"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T19:43:52+08:00"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T19:43:54+08:00"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T19:43:54+08:00"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T19:43:54+08:00"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T19:48:02+08:00"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T19:48:02+08:00"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T19:48:02+08:00"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T19:48:04+08:00"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T19:48:04+08:00"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=[::]:8888","time":"2023-08-17T19:48:04+08:00"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T19:49:32+08:00"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T19:49:32+08:00"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T19:49:32+08:00"}
+{"level":"debug","msg":"HERTZ: Method=GET    absolutePath=/douyin/feed/             --\u003e handlerName=github.com/tiktokSpeed/tiktokSpeed/cmd/api/handlers.GetUserFeed (num=2 handlers)","time":"2023-08-17T21:43:25+08:00"}
+{"level":"info","msg":"HERTZ: Using network library=netpoll","time":"2023-08-17T21:43:25+08:00"}
+{"level":"info","msg":"HERTZ: HTTP server listening on address=127.0.0.1:9999","time":"2023-08-17T21:43:25+08:00"}
+{"level":"info","msg":"hlog 日志","time":"2023-08-17T21:43:56+08:00"}
+{"level":"info","msg":"HERTZ: Received signal: interrupt\n","time":"2023-08-17T21:46:04+08:00"}
+{"level":"info","msg":"HERTZ: Begin graceful shutdown, wait at most num=5 seconds...","time":"2023-08-17T21:46:04+08:00"}
+{"level":"info","msg":"HERTZ: Execute OnShutdownHooks finish","time":"2023-08-17T21:46:04+08:00"}

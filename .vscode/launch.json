@@ -1,0 +1,25 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "env": {
+                "PATH":"/usr/local/bin/:/usr/bin/",
+            },
+            "args": ["run", "."],
+            //用whereis go 查看go的路径   不是/root/go/bin
+           "program": "${fileDirname}"
+            // "program": "${workspaceFolder}",
+            //把program那个变量的值改一下，改成 "program": "${workspaceFolder}",
+            // 意思是调试的时候，以当前打开的文件夹根目录作为工程目录进行调试。
+            
+        }
+    ]
+}
