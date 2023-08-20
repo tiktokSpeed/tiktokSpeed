@@ -28,7 +28,8 @@ func registerGroup(h *server.Hertz) {
 	feed.GET("/", handlers.GetUserFeed)
 
 	user := douyin.Group("/user")
-	user.POST("/register/", handlers.Register)
+	_register := user.Group("/register")
+	_register.POST("/", handlers.Register)
 
 }
 
@@ -36,6 +37,7 @@ func registerGroup(h *server.Hertz) {
 func main() {
 
 	myRpc.InitVideo()
+	myRpc.InitUser()
 	h := InitHertz()
 	registerGroup(h)
 

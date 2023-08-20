@@ -11,7 +11,7 @@ import (
 
 // API:  /douyin/user/register
 // Register implements creating a user
-func Register(_ context.Context, c *app.RequestContext) {
+func Register(ctx context.Context, c *app.RequestContext) {
 	hlog.Info("-----App calles Register-----")
 	apiResp := new(api.DouyinUserRegisterResponse)
 
@@ -22,9 +22,9 @@ func Register(_ context.Context, c *app.RequestContext) {
 		return
 	}
 
-	apiResp, err := rpc.UserClient.Register(context.Background(), &api.DouyinUserRegisterRequest{
-		Username: req.Username,
-		Password: req.Password,
+	resp, err := rpc.UserClient.Register(ctx, &api.DouyinUserRegisterRequest{
+		Username: req.GetUsername(),
+		Password: req.GetPassword(),
 	})
 
 	if err != nil {
@@ -32,7 +32,7 @@ func Register(_ context.Context, c *app.RequestContext) {
 		return
 	}
 
-	consts.SendResponse(c, apiResp)
+	consts.SendResponse(c, resp)
 }
 
 func handleError(err error, message string, c *app.RequestContext, apiResp *api.DouyinUserRegisterResponse) {

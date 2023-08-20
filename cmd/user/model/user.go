@@ -1,9 +1,7 @@
 package model
 
-import "gorm.io/gorm"
-
 type User struct {
-	gorm.Model
+	ID            int64  `gorm:"primarykey;autoIncrement"`
 	Username      string `gorm:"type:varchar(32);not null;default:''"`
 	Password      string `gorm:"type:varchar(32);not null;default:''"`
 	FollowCount   int32  `gorm:"type:int(11);not null;default:0"`

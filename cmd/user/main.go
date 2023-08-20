@@ -9,12 +9,13 @@ import (
 	"github.com/cloudwego/kitex/server"
 	"github.com/tiktokSpeed/tiktokSpeed/cmd/user/initialize"
 	"github.com/tiktokSpeed/tiktokSpeed/conf"
+	apiService "github.com/tiktokSpeed/tiktokSpeed/shared/kitex_gen/api/apiservice"
 )
 
 func main() {
 	initialize.InitMySql()
 	opts := kitexInit()
-	svr := initialize.NewServer(new(UserServiceImpl), opts...)
+	svr := apiService.NewServer(new(UserServiceImpl), opts...)
 	err := svr.Run()
 	if err != nil {
 		klog.Error(err.Error())
