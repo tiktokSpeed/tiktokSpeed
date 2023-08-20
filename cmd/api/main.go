@@ -27,12 +27,17 @@ func registerGroup(h *server.Hertz) {
 	feed := douyin.Group("/feed")
 	feed.GET("/", handlers.GetUserFeed)
 
+	user := douyin.Group("/user")
+	_register := user.Group("/register")
+	_register.POST("/", handlers.Register)
+
 }
 
 // 运行API模块
 func main() {
 
 	myRpc.InitVideo()
+	myRpc.InitUser()
 	h := InitHertz()
 	registerGroup(h)
 
