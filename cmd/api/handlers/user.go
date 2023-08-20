@@ -35,9 +35,51 @@ func Register(ctx context.Context, c *app.RequestContext) {
 	consts.SendResponse(c, resp)
 }
 
-func handleError(err error, message string, c *app.RequestContext, apiResp *api.DouyinUserRegisterResponse) {
-	hlog.Info(message, err)
-	apiResp.StatusCode = int32(consts.ErrCode)
-	apiResp.StatusMsg = message
+// API:  /douyin/user/ [GET]
+// GetUser implements getting user info
+func GetUser(ctx context.Context, c *app.RequestContext) {
+	hlog.Info("-----App calles Get User Info-----")
+	
+}
+
+// API:  /douyin/user/login [POST]
+// Login implements user login
+func Login(ctx context.Context, c *app.RequestContext) {
+	hlog.Info("-----App calles Login-----")
+	apiResp := new(api.DouyinUserLoginResponse)
+
+	var req api.DouyinUserLoginRequest
+	if condition := c.BindAndValidate(&req); condition != nil {
+		handleError(condition, "Request validation failed", c, apiResp)
+		return
+	}
+
+	apiResp, err := rpc.UserClient.Login(context.Background(), &api.DouyinUserLoginRequest{
+		Username: req.Username,
+		Password: req.Password,
+	})
+
+	if err != nil {
+		handleError(err, "Failed to login", c, apiResp)
+		return
+	}
+
 	consts.SendResponse(c, apiResp)
+
+}
+
+func handleError(err error, message string, c *app.RequestContext, apiResp interface{}) {
+	hlog.Info(message, err)
+	resp, ok := apiResp.(interface {
+		SetStatusCode(int32)
+		SetStatusMsg(string)
+	})
+	if !ok {
+		hlog.Info("apiResp is not a pointer")
+		return
+	}
+
+	resp.SetStatusCode(consts.ErrCode)
+	resp.SetStatusMsg(message)
+	consts.SendResponse(c, resp)
 }
