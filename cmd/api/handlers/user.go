@@ -18,6 +18,7 @@ const jwtSecretKey = "asecretkey"
 // API:  /douyin/user/register
 // Register implements creating a user
 func Register(_ context.Context, c *app.RequestContext) {
+	hlog.Info("-----App calles Register-----")
 	apiResp := new(api.DouyinUserRegisterResponse)
 	var err error
 	var req api.DouyinUserRegisterRequest

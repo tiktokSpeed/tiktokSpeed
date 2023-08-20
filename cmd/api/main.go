@@ -28,7 +28,7 @@ func registerGroup(h *server.Hertz) {
 	feed.GET("/", handlers.GetUserFeed)
 
 	user := douyin.Group("/user")
-	user.GET("/register", handlers.Register)
+	user.POST("/register/", handlers.Register)
 
 }
 
