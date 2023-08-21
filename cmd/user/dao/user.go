@@ -41,3 +41,12 @@ func NewUser(username string, password string) (*base.User, error) {
 		Name: username,
 	}, nil
 }
+
+func GetUserByUsername(username string) (*model.User, error) {
+	user := &model.User{}
+	err := initialize.DB.Table("user").Where(&model.User{Username: username}).First(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
