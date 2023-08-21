@@ -28,9 +28,15 @@ func registerGroup(h *server.Hertz) {
 	feed.GET("/", handlers.GetUserFeed)
 
 	user := douyin.Group("/user")
-	_register := user.Group("/register")
-	_register.POST("/", handlers.Register)
-
+	user.GET("/", handlers.GetUser)
+	{
+		register := user.Group("/register")
+		register.POST("/", handlers.Register)
+	}
+	{
+		login := user.Group("/login")
+		login.POST("/", handlers.Login)
+	}
 }
 
 // 运行API模块

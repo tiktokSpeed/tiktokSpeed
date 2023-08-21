@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 
-	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/tiktokSpeed/tiktokSpeed/cmd/user/dao"
 	"github.com/tiktokSpeed/tiktokSpeed/pkg/jwt"
 	"github.com/tiktokSpeed/tiktokSpeed/shared/consts"
 	"github.com/tiktokSpeed/tiktokSpeed/shared/kitex_gen/api"
+	"github.com/tiktokSpeed/tiktokSpeed/shared/kitex_gen/base"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserServiceImpl struct {
@@ -23,15 +24,18 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *api.DouyinUserRegis
 
 	user, err := dao.NewUser(req.Username, req.Password)
 	if err != nil {
-		return handleError(err, "Failed to create user", resp)
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = "Failed to create user"
+		return resp, err
 	}
 
 	// generate token by Jason Web Token
 	token, err := jwt.NewJWT([]byte(jwtSecretKey)).CreateToken(jwt.CustomClaims{ID: user.Id})
 
 	if err != nil {
-		handleError(err, "Failed to generate token", resp)
-		return
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = "Failed to generate token"
+		return resp, err
 	}
 
 	// generate response
@@ -43,21 +47,65 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *api.DouyinUserRegis
 	return resp, nil
 }
 
-func handleError(err error, message string, apiResp *api.DouyinUserRegisterResponse) (*api.DouyinUserRegisterResponse, error) {
-	klog.Info(message, err)
-	apiResp.StatusCode = int32(consts.ErrCode)
-	apiResp.StatusMsg = message
-	return apiResp, err
-}
-
+// Login implements the UserService interface.
 func (s *UserServiceImpl) Login(ctx context.Context, req *api.DouyinUserLoginRequest) (r *api.DouyinUserLoginResponse, err error) {
-	// TODO: implement this method
-	return nil, nil
+	resp := new(api.DouyinUserLoginResponse)
+
+	user, err := dao.GetUserByUsername(req.Username)
+	if err != nil {
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = "The user does not exist"
+		return resp, err
+	}
+
+	// use bcrypt to hash password for security, and compare the password
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
+	if err != nil {
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = "The password is wrong"
+		return resp, err
+	}
+
+	// generate token by Jason Web Token
+	token, err := jwt.NewJWT([]byte(jwtSecretKey)).CreateToken(jwt.CustomClaims{ID: user.ID})
+
+	if err != nil {
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = "Failed to generate token"
+		return resp, err
+	}
+
+	resp.StatusCode = int32(consts.CorrectCode)
+	resp.StatusMsg = "Login successfully"
+	resp.UserId = user.ID
+	resp.Token = token
+	return resp, nil
 }
 
+// GetUserInfo implements the UserService interface.
 func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *api.DouyinUserRequest) (r *api.DouyinUserResponse, err error) {
-	// TODO: implement this method
-	return nil, nil
+	resp := new(api.DouyinUserResponse)
+
+	// TODO: Requirement clarification: what is token used for?
+
+	user, err := dao.GetUserById(req.UserId)
+	if err != nil {
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = "Failed to get user info"
+		return resp, err
+	}
+
+	resp.StatusCode = int32(consts.CorrectCode)
+	resp.StatusMsg = "Get user info successfully"
+
+	// fill user info with user, social, interact info
+	// TODO: fill user info with user, social, interact info
+	resp.User = &base.User{
+		Id:   user.ID,
+		Name: user.Username,
+	}
+
+	return resp, nil
 }
 
 // No need those functions below
