@@ -49,7 +49,7 @@ func GetUser(ctx context.Context, c *app.RequestContext) {
 
 	apiResp, err := rpc.UserClient.GetUserInfo(context.Background(), &api.DouyinUserRequest{
 		UserId: req.UserId,
-		
+		Token:  req.Token,
 	})
 
 	if err != nil {
