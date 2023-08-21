@@ -39,7 +39,26 @@ func Register(ctx context.Context, c *app.RequestContext) {
 // GetUser implements getting user info
 func GetUser(ctx context.Context, c *app.RequestContext) {
 	hlog.Info("-----App calles Get User Info-----")
-	
+	apiResp := new(api.DouyinUserResponse)
+
+	var req api.DouyinUserRequest
+	if condition := c.BindAndValidate(&req); condition != nil {
+		handleError(condition, "Request validation failed", c, apiResp)
+		return
+	}
+
+	apiResp, err := rpc.UserClient.GetUserInfo(context.Background(), &api.DouyinUserRequest{
+		UserId: req.UserId,
+		
+	})
+
+	if err != nil {
+		handleError(err, "Failed to get user info", c, apiResp)
+		return
+	}
+
+	consts.SendResponse(c, apiResp)
+
 }
 
 // API:  /douyin/user/login [POST]

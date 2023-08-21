@@ -7,6 +7,7 @@ import (
 	"github.com/tiktokSpeed/tiktokSpeed/pkg/jwt"
 	"github.com/tiktokSpeed/tiktokSpeed/shared/consts"
 	"github.com/tiktokSpeed/tiktokSpeed/shared/kitex_gen/api"
+	"github.com/tiktokSpeed/tiktokSpeed/shared/kitex_gen/base"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -81,9 +82,30 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *api.DouyinUserLoginReq
 	return resp, nil
 }
 
+// GetUserInfo implements the UserService interface.
 func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *api.DouyinUserRequest) (r *api.DouyinUserResponse, err error) {
-	// TODO: implement this method
-	return nil, nil
+	resp := new(api.DouyinUserResponse)
+
+	// TODO: Requirement clarification: what is token used for?
+
+	user, err := dao.GetUserById(req.UserId)
+	if err != nil {
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = "Failed to get user info"
+		return resp, err
+	}
+
+	resp.StatusCode = int32(consts.CorrectCode)
+	resp.StatusMsg = "Get user info successfully"
+
+	// fill user info with user, social, interact info
+	// TODO: fill user info with user, social, interact info
+	resp.User = &base.User{
+		Id:   user.ID,
+		Name: user.Username,
+	}
+
+	return resp, nil
 }
 
 // No need those functions below

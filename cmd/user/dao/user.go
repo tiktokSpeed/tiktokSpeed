@@ -50,3 +50,12 @@ func GetUserByUsername(username string) (*model.User, error) {
 	}
 	return user, nil
 }
+
+func GetUserById(id int64) (*model.User, error) {
+	user := &model.User{}
+	err := initialize.DB.Table("user").Where(&model.User{ID: id}).First(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
