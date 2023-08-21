@@ -58,7 +58,7 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *api.DouyinUserLoginReq
 	}
 
 	// use bcrypt to hash password for security, and compare the password
-	err = bcrypt.CompareHashAndPassword([]byte(req.Username), []byte(req.Password))
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
 	if err != nil {
 		resp.StatusCode = int32(consts.ErrCode)
 		resp.StatusMsg = "The password is wrong"
