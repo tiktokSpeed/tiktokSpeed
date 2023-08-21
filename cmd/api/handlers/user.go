@@ -1,6 +1,9 @@
 package handlers
 
 import (
+	"fmt"
+	"strconv"
+
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/tiktokSpeed/tiktokSpeed/cmd/api/rpc"
@@ -22,9 +25,16 @@ func Register(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
+	userName, ok := c.GetQuery("username")
+	password, ok := c.GetQuery("password")
+	if !ok {
+		handleError(fmt.Errorf("Invalid input"), "Invalid input", c, apiResp)
+		return
+	}
+
 	resp, err := rpc.UserClient.Register(ctx, &api.DouyinUserRegisterRequest{
-		Username: req.GetUsername(),
-		Password: req.GetPassword(),
+		Username: userName,
+		Password: password,
 	})
 
 	if err != nil {
@@ -47,9 +57,22 @@ func GetUser(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	apiResp, err := rpc.UserClient.GetUserInfo(context.Background(), &api.DouyinUserRequest{
-		UserId: req.UserId,
-		
+	userid, ok := c.GetQuery("user_id")
+	token, ok := c.GetQuery("token")
+	if !ok {
+		handleError(fmt.Errorf("Invalid input"), "Invalid input", c, apiResp)
+		return
+	}
+
+	id, err := strconv.ParseInt(userid, 10, 64)
+	if err != nil {
+		handleError(fmt.Errorf("Invalid input"), "Invalid input", c, apiResp)
+		return
+	}
+
+	apiResp, err = rpc.UserClient.GetUserInfo(context.Background(), &api.DouyinUserRequest{
+		UserId: id,
+		Token:  token,
 	})
 
 	if err != nil {
@@ -73,9 +96,16 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
+	username, ok := c.GetQuery("username")
+	password, ok := c.GetQuery("password")
+	if !ok {
+		handleError(fmt.Errorf("Invalid input"), "Invalid input", c, apiResp)
+		return
+	}
+
 	apiResp, err := rpc.UserClient.Login(context.Background(), &api.DouyinUserLoginRequest{
-		Username: req.Username,
-		Password: req.Password,
+		Username: username,
+		Password: password,
 	})
 
 	if err != nil {
