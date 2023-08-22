@@ -9,7 +9,7 @@ kitex:
 
 registry:
   registry_address:
-    - 127.0.0.1:2379
+    - ln.nn.ci:32379
   username: ""
   password: ""
 

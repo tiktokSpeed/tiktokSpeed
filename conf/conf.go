@@ -68,7 +68,7 @@ func GetConf() *Config {
 
 func initConf() {
 	//先写死吧
-	prefix := "/root/tiktokSpeed/conf"
+	prefix := "./conf"
 	confFileRelPath := filepath.Join(prefix, filepath.Join(GetEnv(), "conf.yaml"))
 	content, err := ioutil.ReadFile(confFileRelPath)
 	if err != nil {

@@ -4,6 +4,8 @@ import (
 	"log"
 
 	"github.com/cloudwego/kitex/client"
+	etcd "github.com/kitex-contrib/registry-etcd"
+	"github.com/tiktokSpeed/tiktokSpeed/conf"
 	"github.com/tiktokSpeed/tiktokSpeed/shared/kitex_gen/video/videoservice"
 )
 
@@ -11,8 +13,11 @@ var VideoClient videoservice.Client
 
 // Video RPC 客户端初始化
 func InitVideo() {
-
-	c, err := videoservice.NewClient("Video", client.WithHostPorts("127.0.0.1:8888"))
+	r, err := etcd.NewEtcdResolver(conf.GetConf().Registry.RegistryAddress)
+	if err != nil {
+		log.Fatal(err)
+	}
+	c, err := videoservice.NewClient("video", client.WithResolver(r))
 	if err != nil {
 		panic(err)
 	}
