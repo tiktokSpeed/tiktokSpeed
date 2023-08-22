@@ -1,6 +1,8 @@
 package dao
 
 import (
+	"errors"
+
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/tiktokSpeed/tiktokSpeed/cmd/user/initialize"
 	"github.com/tiktokSpeed/tiktokSpeed/cmd/user/model"
@@ -21,9 +23,9 @@ func NewUser(username string, password string) (*base.User, error) {
 		return nil, gorm.ErrInvalidValue
 	}
 	err = initialize.DB.Table("user").Where(&model.User{Username: username}).First(&model.User{}).Error
-	if err != gorm.ErrRecordNotFound || err == nil {
+	if !errors.Is(err, gorm.ErrRecordNotFound) {
 		klog.Info("Have record before")
-		return nil, err
+		return nil, errors.New("user already exists")
 	}
 
 	usr := &model.User{
