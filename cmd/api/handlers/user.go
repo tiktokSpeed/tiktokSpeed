@@ -119,16 +119,8 @@ func Login(ctx context.Context, c *app.RequestContext) {
 
 func handleError(err error, message string, c *app.RequestContext, apiResp interface{}) {
 	hlog.Info(message, err)
-	resp, ok := apiResp.(interface {
-		SetStatusCode(int32)
-		SetStatusMsg(string)
-	})
-	if !ok {
-		hlog.Info("apiResp is not a pointer")
-		return
-	}
-
-	resp.SetStatusCode(consts.ErrCode)
-	resp.SetStatusMsg(message)
-	consts.SendResponse(c, resp)
+	consts.SendResponse(c, struct {
+		StatusCode int    `json:"status_code"`
+		StatusMsg  string `json:"status_msg"`
+	}{consts.ErrCode, message})
 }
