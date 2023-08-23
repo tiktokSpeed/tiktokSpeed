@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -94,5 +95,18 @@ func (s *VideoServiceImpl) GetPublishedVideoList(ctx context.Context, req *video
 
 // PublishVideo implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) PublishVideo(ctx context.Context, req *video.DouyinPublishActionRequest) (resp *video.DouyinPublishActionResponse, err error) {
+	resp = new(video.DouyinPublishActionResponse)
+	err = dao.SavePublishVideo(req)
+	if err != nil {
+		resp.BaseResp = &base.DouyinBaseResponse{
+			StatusCode: int32(consts.ErrCode),
+			StatusMsg:  fmt.Sprintf("failed to save new video %v", err),
+		}
+	} else {
+		resp.BaseResp = &base.DouyinBaseResponse{
+			StatusCode: int32(consts.CorrectCode),
+			StatusMsg:  "OK",
+		}
+	}
 	return resp, err
 }

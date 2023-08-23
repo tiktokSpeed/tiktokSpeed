@@ -14,9 +14,6 @@ import (
 type UserServiceImpl struct {
 }
 
-// TODO: configurable secret key
-const jwtSecretKey = "asecretkey"
-
 // Feed implements the UserService interface.
 func (s *UserServiceImpl) Register(ctx context.Context, req *api.DouyinUserRegisterRequest) (resp *api.DouyinUserRegisterResponse, err error) {
 
@@ -30,7 +27,7 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *api.DouyinUserRegis
 	}
 
 	// generate token by Jason Web Token
-	token, err := jwt.NewJWT([]byte(jwtSecretKey)).CreateToken(jwt.CustomClaims{ID: user.Id})
+	token, err := jwt.CreateToken(jwt.CustomClaims{ID: user.Id})
 
 	if err != nil {
 		resp.StatusCode = int32(consts.ErrCode)
@@ -67,7 +64,7 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *api.DouyinUserLoginReq
 	}
 
 	// generate token by Jason Web Token
-	token, err := jwt.NewJWT([]byte(jwtSecretKey)).CreateToken(jwt.CustomClaims{ID: user.ID})
+	token, err := jwt.CreateToken(jwt.CustomClaims{ID: user.ID})
 
 	if err != nil {
 		resp.StatusCode = int32(consts.ErrCode)

@@ -23,4 +23,8 @@ redis:
 jwt:
   signKey: "signingKey"
 
- 
+minio:
+  endpoint: "minio.xhofe.top"
+  access_key: "epaGD1ze5rY7HTOw2sVO"
+  secret_key: "UF0BC6g7LqmsKDiBucw86kPmn3b452uyRTouryNH"
+  bucket: "tiktok"

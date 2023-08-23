@@ -37,6 +37,8 @@ func registerGroup(h *server.Hertz) {
 		login := user.Group("/login")
 		login.POST("/", handlers.Login)
 	}
+	publish := douyin.Group("/publish")
+	publish.POST("/action/", handlers.PublishVideo)
 }
 
 // 运行API模块

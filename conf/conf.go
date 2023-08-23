@@ -25,6 +25,14 @@ type Config struct {
 	Redis    Redis    `yaml:"redis"`
 	Registry Registry `yaml:"registry"`
 	Jwt      Jwt      `yaml:"jwt"`
+	Minio    Minio    `yaml:"minio"`
+}
+
+type Minio struct {
+	Endpoint  string `yaml:"endpoint"`
+	AccessKey string `yaml:"access_key"`
+	SecretKey string `yaml:"secret_key"`
+	Bucket    string `yaml:"bucket"`
 }
 
 type Jwt struct {
