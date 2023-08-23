@@ -16,19 +16,18 @@ import (
 // Register implements creating a user
 func Register(ctx context.Context, c *app.RequestContext) {
 	hlog.Info("-----App calles Register-----")
-	apiResp := new(api.DouyinUserRegisterResponse)
 
 	var req api.DouyinUserRegisterRequest
 
 	if err := c.BindAndValidate(&req); err != nil {
-		handleError(err, "Request validation failed", c, apiResp)
+		handleError(err, "Request validation failed", c)
 		return
 	}
 
 	userName, ok := c.GetQuery("username")
 	password, ok := c.GetQuery("password")
 	if !ok {
-		handleError(fmt.Errorf("Invalid input"), "Invalid input", c, apiResp)
+		handleError(fmt.Errorf("Invalid input"), "Invalid input", c)
 		return
 	}
 
@@ -38,7 +37,7 @@ func Register(ctx context.Context, c *app.RequestContext) {
 	})
 
 	if err != nil {
-		handleError(err, "Failed to register", c, apiResp)
+		handleError(err, "Failed to register", c)
 		return
 	}
 
@@ -53,20 +52,20 @@ func GetUser(ctx context.Context, c *app.RequestContext) {
 
 	var req api.DouyinUserRequest
 	if condition := c.BindAndValidate(&req); condition != nil {
-		handleError(condition, "Request validation failed", c, apiResp)
+		handleError(condition, "Request validation failed", c)
 		return
 	}
 
 	userid, ok := c.GetQuery("user_id")
 	token, ok := c.GetQuery("token")
 	if !ok {
-		handleError(fmt.Errorf("Invalid input"), "Invalid input", c, apiResp)
+		handleError(fmt.Errorf("Invalid input"), "Invalid input", c)
 		return
 	}
 
 	id, err := strconv.ParseInt(userid, 10, 64)
 	if err != nil {
-		handleError(fmt.Errorf("Invalid input"), "Invalid input", c, apiResp)
+		handleError(fmt.Errorf("Invalid input"), "Invalid input", c)
 		return
 	}
 
@@ -76,7 +75,7 @@ func GetUser(ctx context.Context, c *app.RequestContext) {
 	})
 
 	if err != nil {
-		handleError(err, "Failed to get user info", c, apiResp)
+		handleError(err, "Failed to get user info", c)
 		return
 	}
 
@@ -92,14 +91,14 @@ func Login(ctx context.Context, c *app.RequestContext) {
 
 	var req api.DouyinUserLoginRequest
 	if condition := c.BindAndValidate(&req); condition != nil {
-		handleError(condition, "Request validation failed", c, apiResp)
+		handleError(condition, "Request validation failed", c)
 		return
 	}
 
 	username, ok := c.GetQuery("username")
 	password, ok := c.GetQuery("password")
 	if !ok {
-		handleError(fmt.Errorf("Invalid input"), "Invalid input", c, apiResp)
+		handleError(fmt.Errorf("Invalid input"), "Invalid input", c)
 		return
 	}
 
@@ -109,18 +108,10 @@ func Login(ctx context.Context, c *app.RequestContext) {
 	})
 
 	if err != nil {
-		handleError(err, "Failed to login", c, apiResp)
+		handleError(err, "Failed to login", c)
 		return
 	}
 
 	consts.SendResponse(c, apiResp)
 
-}
-
-func handleError(err error, message string, c *app.RequestContext, apiResp interface{}) {
-	hlog.Info(message, err)
-	consts.SendResponse(c, struct {
-		StatusCode int    `json:"status_code"`
-		StatusMsg  string `json:"status_msg"`
-	}{consts.ErrCode, message})
 }
