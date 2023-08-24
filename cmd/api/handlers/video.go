@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -25,6 +26,10 @@ func GetUserFeed(ctx context.Context, c *app.RequestContext) {
 		LatestTime: req.LatestTime,
 		ViewerId:   817,
 	})
+	if err != nil {
+		handleError(err, "Failed to get video", c)
+		return
+	}
 	apiResp.VideoList = Videos(videoResp.VideoList)
 	apiResp.StatusCode = int32(consts.CorrectCode)
 	apiResp.StatusMsg = "调用视频流接口 成功"
@@ -104,4 +109,23 @@ func PublishVideo(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	consts.SendResponse(c, resp.BaseResp)
+}
+
+// /douyin/publish/list/
+func GetPublishList(ctx context.Context, c *app.RequestContext) {
+	hlog.Info("-----App calls Publish List-----")
+	userID := c.Query("user_id")
+	ownerID, err := strconv.ParseInt(userID, 10, 64)
+	if err != nil {
+		handleError(err, "Failed to parse user_id", c)
+		return
+	}
+	req := new(video.DouyinGetPublishedListRequest)
+	req.OwnerId = ownerID
+	resp, err := rpc.VideoClient.GetPublishedVideoList(ctx, req)
+	if err != nil {
+		handleError(err, "Failed to get publish list", c)
+		return
+	}
+	consts.SendResponse(c, resp)
 }

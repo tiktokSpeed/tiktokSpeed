@@ -39,6 +39,7 @@ func registerGroup(h *server.Hertz) {
 	}
 	publish := douyin.Group("/publish")
 	publish.POST("/action/", handlers.PublishVideo)
+	publish.GET("/list/", handlers.GetPublishList)
 }
 
 // 运行API模块

@@ -30,6 +30,19 @@ type VideoPo struct {
 	DeletedAt     gorm.DeletedAt `gorm:"index"`
 }
 
+func getPlayAndCoverUrl(videoKey string) (string, string, error) {
+	coverKey := path.Dir(videoKey) + "/cover.jpg"
+	playURL, err := minio.PresignedURL(context.Background(), videoKey)
+	if err != nil {
+		return "", "", err
+	}
+	coverURL, err := minio.PresignedURL(context.Background(), coverKey)
+	if err != nil {
+		return "", "", err
+	}
+	return playURL, coverURL, nil
+}
+
 // GetVideoListByLatestTime gets videos for feed.
 func GetVideoListByLatestTime(latestTime int64) ([]*VideoPo, error) {
 	//每次返回10个
@@ -42,13 +55,8 @@ func GetVideoListByLatestTime(latestTime int64) ([]*VideoPo, error) {
 		return nil, err
 	}
 	for i := range videos {
-		fileKey := videos[i].PlayUrl
-		coverKey := path.Dir(fileKey) + "/cover.jpg"
-		playURL, err := minio.PresignedURL(context.Background(), fileKey)
-		if err != nil {
-			return nil, err
-		}
-		coverURL, err := minio.PresignedURL(context.Background(), coverKey)
+		videoKey := videos[i].PlayUrl
+		playURL, coverURL, err := getPlayAndCoverUrl(videoKey)
 		if err != nil {
 			return nil, err
 		}
@@ -58,6 +66,7 @@ func GetVideoListByLatestTime(latestTime int64) ([]*VideoPo, error) {
 	return videos, nil
 }
 
+// SavePublishVideo saves video to db.
 func SavePublishVideo(req *video.DouyinPublishActionRequest) error {
 	videoPo := VideoPo{
 		FavoriteCount: 0,
@@ -69,4 +78,26 @@ func SavePublishVideo(req *video.DouyinPublishActionRequest) error {
 		CreatedAt:     time.Now(),
 	}
 	return initialize.DB.Table("video").Create(&videoPo).Error
+}
+
+// GetVideoListByUserID gets videos by user id.
+func GetVideoListByUserID(userID int64) ([]*VideoPo, error) {
+	var videos []*VideoPo
+	if err := initialize.DB.
+		Table("video").
+		Where("user_id = ?", userID).
+		Order("created_at desc").
+		Find(&videos).Error; err != nil {
+		return nil, err
+	}
+	for i := range videos {
+		videoKey := videos[i].PlayUrl
+		playURL, coverURL, err := getPlayAndCoverUrl(videoKey)
+		if err != nil {
+			return nil, err
+		}
+		videos[i].PlayUrl = playURL
+		videos[i].CoverUrl = coverURL
+	}
+	return videos, nil
 }
