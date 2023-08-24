@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/tiktokSpeed/tiktokSpeed/cmd/user/dao"
 	"github.com/tiktokSpeed/tiktokSpeed/pkg/jwt"
@@ -122,8 +123,22 @@ func (s *UserServiceImpl) VideoList(ctx context.Context, req *api.DouyinPublishL
 }
 
 func (s *UserServiceImpl) Favorite(ctx context.Context, req *api.DouyinFavoriteActionRequest) (r *api.DouyinFavoriteActionResponse, err error) {
-	// TODO: implement this method
-	return nil, nil
+	resp := new(api.DouyinFavoriteActionResponse)
+	userClaims, err := jwt.ParseToken(req.Token)
+	if err != nil {
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = fmt.Sprintf("Failed to parse token: %v", err)
+		return resp, err
+	}
+	err = dao.FavoriteAction(userClaims.ID, req.VideoId, req.ActionType)
+	if err != nil {
+		resp.StatusCode = int32(consts.ErrCode)
+		resp.StatusMsg = fmt.Sprintf("Failed to favorite: %v", err)
+		return resp, err
+	}
+	resp.StatusCode = int32(consts.CorrectCode)
+	resp.StatusMsg = "Favorite successfully"
+	return resp, nil
 }
 
 func (s *UserServiceImpl) FavoriteList(ctx context.Context, req *api.DouyinFavoriteListRequest) (r *api.DouyinFavoriteListResponse, err error) {
