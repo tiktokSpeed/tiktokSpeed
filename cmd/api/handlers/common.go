@@ -7,7 +7,7 @@ import (
 )
 
 func handleError(err error, message string, c *app.RequestContext) {
-	hlog.Info(message, err)
+	hlog.Info(message, " ---- ", err)
 	consts.SendResponse(c, struct {
 		StatusCode int    `json:"status_code"`
 		StatusMsg  string `json:"status_msg"`
