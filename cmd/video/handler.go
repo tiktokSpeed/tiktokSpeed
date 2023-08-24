@@ -90,7 +90,21 @@ func (s *VideoServiceImpl) GetPublishedVideoIdList(ctx context.Context, req *vid
 
 // GetPublishedVideoList implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) GetPublishedVideoList(ctx context.Context, req *video.DouyinGetPublishedListRequest) (resp *video.DouyinGetPublishedListResponse, err error) {
-	return resp, err
+	resp = new(video.DouyinGetPublishedListResponse)
+	videos, err := dao.GetVideoListByUserID(req.OwnerId)
+	if err != nil {
+		resp.BaseResp = &base.DouyinBaseResponse{
+			StatusCode: int32(consts.ErrCode),
+			StatusMsg:  fmt.Sprintf("failed to get video list by user ID: %v", err),
+		}
+		return resp, err
+	}
+	resp.VideoList, err = fillVideoList(videos)
+	resp.BaseResp = &base.DouyinBaseResponse{
+		StatusCode: int32(consts.CorrectCode),
+		StatusMsg:  "OK",
+	}
+	return resp, nil
 }
 
 // PublishVideo implements the VideoServiceImpl interface.
